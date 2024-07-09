@@ -59,6 +59,18 @@ switch ($path_info) {
          send_json_response($leaderboard);
       }
       break;
+   case '/reset':
+      if ($request_method == 'POST') {
+         // Handle score reset
+         $_SESSION['scores'] = [
+            'playerX' => 0,
+            'playerO' => 0,
+            'draws' => 0
+         ];
+
+         send_json_response($_SESSION['scores']);
+      }
+      break;
    default:
       http_response_code(404);
       send_json_response(['error' => 'Not Found']);
