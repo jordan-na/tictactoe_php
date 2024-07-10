@@ -1,4 +1,4 @@
-import { scoreTracker } from "./score-tracker.mjs";
+import { scoreServices } from "./ajax/score-services.mjs";
 import { TicTacToePlayer } from "./TicTacToePlayer.mjs";
 
 const playerTurnSymbol = document.querySelector("#player-turn-symbol");
@@ -10,15 +10,10 @@ const gameResultMssg = document.querySelector("#game-result-mssg h2");
 const gameResultMssgBig = document.querySelector("#game-result-mssg h1");
 const winnerSymbol = document.querySelector("#game-result-mssg h1 img");
 const actionBtns = document.querySelector("#action-btns");
+const resetBtn = document.querySelector("#reset-btn");
 
 export class TicTacToe {
    constructor(size) {
-      this.xScore = scoreTracker.getPlayerScore() ? scoreTracker.getPlayerScore() : 0;
-      scores[0].innerText = `${this.xScore}`;
-      this.oScore = scoreTracker.getCpuScore() ? scoreTracker.getCpuScore() : 0;
-      scores[2].innerText = `${this.oScore}`;
-      this.ties = scoreTracker.getTies() ? scoreTracker.getTies() : 0;
-      scores[1].innerText = `${this.ties}`;
       this.size = size;
       this.numCells = size * size;
       this.filledCells = 0;
@@ -33,26 +28,26 @@ export class TicTacToe {
          await this.wait(1500);
          this.#cpuFillCell();
          this.#toggleEvents();
+         resetBtn.classList.toggle("disabled");
          playerTurnSymbol.src = "assets/x_gray.svg";
       }
    }
 
    async #playerFillCell(cell, row, col) {
+      resetBtn.classList.toggle("disabled");
       this.filledCells++;
       cell.classList.add("x");
       const result = this.player.fillCell(row, col);
       if (result) {
          this.#highlightWinningCells(row, col, result);
-         this.xScore++;
-         scoreTracker.setPlayerScore(this.xScore);
-         scores[0].innerText = `${this.xScore}`;
+         const scoresData = await scoreServices.incrementScore("X");
+         scores[0].innerText = `${scoresData.playerX}`;
          await this.wait(500);
          this.#showPlayerWinner();
          return false;
       } else if (this.filledCells === this.numCells) {
-         this.ties++;
-         scoreTracker.setTies(this.ties);
-         scores[1].innerText = `${this.ties}`;
+         const scoresData = await scoreServices.incrementScore("draw");
+         scores[1].innerText = `${scoresData.draws}`;
          await this.wait(500);
          this.#showTie();
          return false;
@@ -74,15 +69,13 @@ export class TicTacToe {
       const result = this.cpu.fillCell(row, col);
       if (result) {
          this.#highlightWinningCells(row, col, result);
-         this.oScore++;
-         scoreTracker.setCpuScore(this.oScore);
-         scores[2].innerText = `${this.oScore}`;
+         const scoresData = await scoreServices.incrementScore("O");
+         scores[2].innerText = `${scoresData.playerO}`;
          await this.wait(500);
          this.#showCpuWinner();
       } else if (this.filledCells === this.numCells) {
-         this.ties++;
-         scoreTracker.setTies(this.ties);
-         scores[1].innerText = `${this.ties}`;
+         const scoresData = await scoreServices.incrementScore("draw");
+         scores[1].innerText = `${scoresData.draws}`;
          await this.wait(500);
          this.#showTie();
       }
@@ -175,18 +168,14 @@ export class TicTacToe {
       close();
    }
 
-   reset() {
-      this.xScore = 0;
-      scoreTracker.setPlayerScore(0);
-      this.oScore = 0;
-      scoreTracker.setCpuScore(0);
-      this.ties = 0;
-      scoreTracker.setTies(0);
-      this.filledCells = 0;
+   async reset() {
+      const scoresData = await scoreServices.resetScores();
+      scores[0].innerText = `${scoresData.playerX}`;
+      scores[1].innerText = `${scoresData.draws}`;
+      scores[2].innerText = `${scoresData.playerO}`;
       this.player.reset();
       this.cpu.reset();
       this.#clearBoard();
-      this.#resetScore();
    }
 
    #clearBoard() {
@@ -194,12 +183,6 @@ export class TicTacToe {
          cell.classList.remove("x");
          cell.classList.remove("o");
          cell.classList.remove("winner");
-      }
-   }
-
-   #resetScore() {
-      for (const score of scores) {
-         score.innerText = "0";
       }
    }
 }
