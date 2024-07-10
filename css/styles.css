@@ -105,6 +105,11 @@ button {
    border-bottom: 3px solid var(--dark-gray);
 }
 
+#reset-btn.disabled {
+   pointer-events: none;
+   opacity: 0.5;
+}
+
 #reset-btn img {
    transform: rotateY(180deg) rotateZ(35deg);
    width: 25px;
