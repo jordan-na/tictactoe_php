@@ -64,14 +64,14 @@ function send_json_response($data)
 
 // Get the requested endpoint
 $request_method = $_SERVER['REQUEST_METHOD'];
-$path_info = $_SERVER['PATH_INFO'] ?? '/';
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2)[0];
 
 // Debugging: Log request details
-error_log("Request method: $request_method, Path info: $path_info");
+error_log("Request method: $request_method, Request URI: $request_uri");
 
 // Route the request based on the endpoint
-switch ($path_info) {
-   case '/scores':
+switch ($request_uri) {
+   case '/php/server.php/scores':
       if ($request_method == 'GET') {
          // Debugging: Log scores
          error_log("Returning scores: " . json_encode($scores));
@@ -103,23 +103,25 @@ switch ($path_info) {
          send_json_response($scores);
       }
       break;
-   case '/leaderboard':
+   case '/php/server.php/leaderboard':
       if ($request_method == 'GET') {
          // Get current scores and sort them in descending order
          $leaderboard = [
-            'playerX' => $scores['playerX'],
-            'playerO' => $scores['playerO'],
+            ['name' => 'Player X', 'score' => $scores['playerX']],
+            ['name' => 'Player O', 'score' => $scores['playerO']],
          ];
 
          // Sort leaderboard in descending order
-         arsort($leaderboard);
+         usort($leaderboard, function($a, $b) {
+            return $b['score'] - $a['score'];
+         });
 
          // Debugging: Log leaderboard
          error_log("Returning leaderboard: " . json_encode($leaderboard));
          send_json_response($leaderboard);
       }
       break;
-   case '/reset':
+   case '/php/server.php/reset':
       if ($request_method == 'POST') {
          // Handle score reset
          $scores = [
