@@ -29,6 +29,7 @@ export const eventHandler = (() => {
       .querySelector("#next-round-btn")
       .addEventListener("click", function () {
         ticTacToe.nextRound();
+        location.reload();
       });
   };
 
