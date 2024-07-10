@@ -8,7 +8,7 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
       rel="stylesheet">
    <link rel="stylesheet" href="css/styles.css">
    <title>Tic Tac Toe</title>
@@ -18,7 +18,7 @@
    <main id="game-container">
       <img src="assets/logo.svg" alt="game logo" id="logo">
       <div id="player-turn" class="dark-blue border-radius-sm">
-         <img src="assets//x_gray.svg" alt="player turn" id="player-turn-symbol">
+         <img src="assets/x_gray.svg" alt="player turn" id="player-turn-symbol">
          <span>Turn</span>
       </div>
       <button id="reset-btn" class="border-radius-sm gray">
@@ -57,6 +57,21 @@
             <button id="next-round-btn" class="border-radius-sm">Next Round</button>
          </div>
       </div>
+   </div>
+   <div id="leaderboard-container">
+      <h1>Leaderboard</h1>
+      <table id="leaderboard-table">
+         <thead>
+            <tr>
+               <th>Rank</th>
+               <th>Player</th>
+               <th>Score</th>
+            </tr>
+         </thead>
+         <tbody id="leaderboard-body">
+            
+         </tbody>
+      </table>
    </div>
    <script src="js/app.js" type="module"></script>
 </body>
