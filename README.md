@@ -16,12 +16,14 @@
     ```bash
     php -S localhost:8000
     ```
-2. **Open in Browser**: Open `http://localhost:8000` in your browser.
-3. **Check the Console**: Check the browser console for any errors.
-4. **Verify Endpoints**: Test the endpoints directly in the browser:
+2. **Open in Browser (optional)**: Open `http://localhost:8000` in your browser.
+3. **Check the Console (optional)**: Check the browser console for any errors.
+4. **Verify Endpoints (optional)**: Test the endpoints directly in the browser:
     - `http://localhost:8000/php/server.php/scores`
     - `http://localhost:8000/php/server.php/leaderboard`
     - `http://localhost:8000/php/server.php/reset` (POST request)
+5. **Open the html file**: Open `http://localhost:8000/index.html` in your browser
+6. **Test the application**: You are now ready to interact with the web app
 
 ### Features
 
