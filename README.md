@@ -22,7 +22,7 @@
     - `http://localhost:8000/php/server.php/scores`
     - `http://localhost:8000/php/server.php/leaderboard`
     - `http://localhost:8000/php/server.php/reset` (POST request)
-    
+
 ### Features
 
 Users should be able to:
@@ -39,17 +39,12 @@ The rules of this tic tac toe game are simple. The user is presented with an emp
 ### Screenshots
 
 ***Desktop Layout*** (1440 X 900)\
-![](./screenshots/desktop-board.png)
-![](./screenshots/desktop-game-result.png)
-
-***Tablet Layout*** (768 x 1024)\
-![](.screenshots/tablet-board.png)
-![](./screenshots/tablet-game-result.png)
-
-***Mobile Layout*** (375 x 667) \
-![](./screenshots/mobile-board.png)
-![](./screenshots/mobile-game-result.png)
+![](./screenshots/empty-board.png)
+![](./screenshots/populated-board.png)
+![](./screenshots/x-winner.png)
+![](./screenshots/o-winner.png)
+![](./screenshots/draw.png)
 
 ### Links
 
-- Repository URL: [Github Respository](https://github.com/JasDhindsa/tictactoe)
+- Repository URL: [Github Respository](https://github.com/jordan-na/tictactoe_php)
