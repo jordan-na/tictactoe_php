@@ -24,6 +24,7 @@
     - `http://localhost:8000/php/server.php/reset` (POST request)
 5. **Open the html file**: Open `http://localhost:8000/index.html` in your browser
 6. **Test the application**: You are now ready to interact with the web app
+7. Note that you will be able to see logs in the php server terminal upon each HTTP request
 
 ### Features
 
