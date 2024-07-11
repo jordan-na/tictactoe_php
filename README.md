@@ -12,7 +12,7 @@
 
 ### How to Run the Code
 
-1. **Start the PHP Server**: Navigate the file directory and start the PHP server:
+1. **Start the PHP Server**: Navigate the file directory (not the php folder) and start the PHP server:
     ```bash
     php -S localhost:8000
     ```
