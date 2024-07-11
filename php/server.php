@@ -107,8 +107,8 @@ switch ($request_uri) {
       if ($request_method == 'GET') {
          // Get current scores and sort them in descending order
          $leaderboard = [
-            ['name' => 'Player X', 'score' => $scores['playerX']],
-            ['name' => 'Player O', 'score' => $scores['playerO']],
+            ['name' => 'YOU', 'score' => $scores['playerX']],
+            ['name' => 'CPU', 'score' => $scores['playerO']],
          ];
 
          // Sort leaderboard in descending order

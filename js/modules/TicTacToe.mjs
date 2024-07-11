@@ -1,4 +1,5 @@
 import { scoreServices } from "./ajax/score-services.mjs";
+import { leaderboardHandler } from "./leaderboard-handler.mjs";
 import { TicTacToePlayer } from "./TicTacToePlayer.mjs";
 
 const playerTurnSymbol = document.querySelector("#player-turn-symbol");
@@ -42,12 +43,14 @@ export class TicTacToe {
       this.#highlightWinningCells(row, col, result);
       const scoresData = await scoreServices.incrementScore("X");
       scores[0].innerText = `${scoresData.playerX}`;
+      await leaderboardHandler.updateLeaderboard();
       await this.wait(500);
       this.#showPlayerWinner();
       return false;
     } else if (this.filledCells === this.numCells) {
       const scoresData = await scoreServices.incrementScore("draw");
       scores[1].innerText = `${scoresData.draws}`;
+      await leaderboardHandler.updateLeaderboard();
       await this.wait(500);
       this.#showTie();
       return false;
@@ -71,11 +74,13 @@ export class TicTacToe {
       this.#highlightWinningCells(row, col, result);
       const scoresData = await scoreServices.incrementScore("O");
       scores[2].innerText = `${scoresData.playerO}`;
+      await leaderboardHandler.updateLeaderboard();
       await this.wait(500);
       this.#showCpuWinner();
     } else if (this.filledCells === this.numCells) {
       const scoresData = await scoreServices.incrementScore("draw");
       scores[1].innerText = `${scoresData.draws}`;
+      await leaderboardHandler.updateLeaderboard();
       await this.wait(500);
       this.#showTie();
     }
@@ -162,6 +167,7 @@ export class TicTacToe {
     this.player.reset();
     this.cpu.reset();
     this.filledCells = 0;
+    resetBtn.classList.remove("disabled");
   }
 
   quit() {
@@ -170,6 +176,7 @@ export class TicTacToe {
 
   async reset() {
     const scoresData = await scoreServices.resetScores();
+    await leaderboardHandler.updateLeaderboard();
     scores[0].innerText = `${scoresData.playerX}`;
     scores[1].innerText = `${scoresData.draws}`;
     scores[2].innerText = `${scoresData.playerO}`;
