@@ -30,6 +30,7 @@ Users should be able to:
 - View the optimal layout for the game depending on their device's screen size
 - Play tic tac toe against the computer
 - Maintain the game's score state after refreshing the browser
+- View the leaderboard between player and CPU
 - Reset the score/board
 
 ### Rules
